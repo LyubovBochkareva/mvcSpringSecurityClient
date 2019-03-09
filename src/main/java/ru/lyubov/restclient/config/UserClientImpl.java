@@ -1,6 +1,7 @@
 package ru.lyubov.restclient.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,9 +21,10 @@ public class UserClientImpl implements UserClient {
     final String ROOT_URI = "http://localhost:8081/api/users";
 
     @Autowired
-    public UserClientImpl(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
+    public UserClientImpl(RestTemplateBuilder restTemplateBuilder) {
+        this.restTemplate = restTemplateBuilder.basicAuthentication("two", "two2").build();
     }
+
 
     @Override
     public List<UserDTO> getAllUser() {
